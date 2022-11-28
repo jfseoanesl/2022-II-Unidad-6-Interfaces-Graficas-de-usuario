@@ -111,6 +111,10 @@ public class ArchivoTextoSeleccion implements IArchivoSeleccion {
     @Override
     public ArrayList<SeleccionFutbol> leerSelecciones() throws IOException {
         ArrayList<SeleccionFutbol> lista = null;
+        if(!this.manejadorArchivo.exists()){
+           lista = new ArrayList();
+           return lista;
+        }
         try {
             this.modoLectura = new Scanner(this.manejadorArchivo);
             lista = new ArrayList();

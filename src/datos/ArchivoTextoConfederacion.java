@@ -104,7 +104,14 @@ public class ArchivoTextoConfederacion implements IArchivoConfederacion {
     
     @Override
     public ArrayList<Confederacion> leerConfederaciones() throws IOException {
-        ArrayList<Confederacion> lista = null;
+       
+        ArrayList<Confederacion> lista;
+        if(!this.manejadorArchivo.exists()){
+            lista = new ArrayList();
+            return lista;
+        }
+           
+         
         try {
             this.modoLectura = new Scanner(this.manejadorArchivo);
             lista = new ArrayList();
@@ -115,7 +122,7 @@ public class ArchivoTextoConfederacion implements IArchivoConfederacion {
             }
             return lista;
         } catch (FileNotFoundException fne) {
-            throw new IOException("Error al abrir archivo en modo lectura");
+            throw new IOException("Error al abrir archivo en elctura");
         } catch (SecurityException se) {
             throw new IOException("No tiene privilegios para leer el archivo");
         }

@@ -16,8 +16,8 @@ public class GestionSeleccionFutbol {
     private IArchivoSeleccion archivo;
 
     public GestionSeleccionFutbol() {
-        //this.archivo = new ArchivoTextoSeleccion();
-        this.archivo = new ArchivoObjetoSeleccion();
+        this.archivo = new ArchivoTextoSeleccion();
+        //this.archivo = new ArchivoObjetoSeleccion();
     }
     
     

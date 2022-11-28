@@ -13,11 +13,9 @@ public class GestionConfederacion {
     private IArchivoConfederacion archivo;
 
     public GestionConfederacion() {
-        //this.archivo = new ArchivoTextoConfederacion();
-        this.archivo = new ArchivoObjetoConfederacion();
+        this.archivo = new ArchivoTextoConfederacion();
+        //this.archivo = new ArchivoObjetoConfederacion();
     }
-    
-    
     
     public void registrarConfederacion(Confederacion c)throws IOException{
         this.archivo.registrarConfederacion(c);
@@ -28,5 +26,15 @@ public class GestionConfederacion {
     
     public Confederacion buscarConfederacionPorId(int id) throws IOException{
      return this.archivo.buscarConfederacionPorId(id);
+    }
+    
+    public Confederacion buscarConfederacionPorNombre(String name) throws IOException{
+        ArrayList<Confederacion> lista = this.archivo.leerConfederaciones();
+        for(Confederacion c: lista){
+            if(c.getNombre().equalsIgnoreCase(name)){
+                return c;
+            }
+        }
+        return null;
     }
 }

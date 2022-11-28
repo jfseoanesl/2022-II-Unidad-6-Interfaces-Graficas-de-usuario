@@ -173,6 +173,7 @@ public class GuiRegistroConfederacion extends JDialog implements ActionListener 
         if (e.getSource() == this.btnGuardar) {
             try {
                 this.guardar();
+                JOptionPane.showMessageDialog(this, "Registro exitoso", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ioe) {
                 System.out.println(ioe);
             }
