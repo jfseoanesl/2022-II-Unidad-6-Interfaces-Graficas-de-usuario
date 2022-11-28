@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author Jairo F
  */
-public interface IArchivoSeleccion {
+public interface ICrudSeleccion {
         
     void registrarSeleccion(SeleccionFutbol s)throws IOException;
     ArrayList<SeleccionFutbol> leerSelecciones() throws IOException;

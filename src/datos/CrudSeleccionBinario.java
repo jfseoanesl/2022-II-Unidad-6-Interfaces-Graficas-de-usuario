@@ -10,17 +10,13 @@ import java.util.NoSuchElementException;
  *
  * @author Jairo F
  */
-public class ArchivoObjetoSeleccion implements IArchivoSeleccion {
+public class CrudSeleccionBinario extends CrudBinario implements ICrudSeleccion {
 
-    private File manejadorArchivo;
-    private FileInputStream modoLectura;
-    private FileOutputStream modoEscritura;
-
-    public ArchivoObjetoSeleccion() {
-        this("MundialCatar2022.obj");
+    public CrudSeleccionBinario() {
+        this("SeleccionesCatar2022.bin");
     }
 
-    public ArchivoObjetoSeleccion(String name) {
+    public CrudSeleccionBinario(String name) {
         this.manejadorArchivo = new File(name);
     }
 

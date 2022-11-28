@@ -10,11 +10,11 @@ import java.util.ArrayList;
  * @author Jairo F
  */
 public class GestionConfederacion {
-    private IArchivoConfederacion archivo;
+    private ICrudConfederacion archivo;
 
     public GestionConfederacion() {
-        this.archivo = new ArchivoTextoConfederacion();
-        //this.archivo = new ArchivoObjetoConfederacion();
+        //this.archivo = new CrudConfederacionTexto();
+        this.archivo = new CrudConfederacionBinario();
     }
     
     public void registrarConfederacion(Confederacion c)throws IOException{

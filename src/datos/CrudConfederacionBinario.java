@@ -16,16 +16,13 @@ import java.util.NoSuchElementException;
  *
  * @author Jairo F
  */
-public class ArchivoObjetoConfederacion implements IArchivoConfederacion {
-    private File manejadorArchivo;
-    private FileInputStream modoLectura;
-    private FileOutputStream modoEscritura;
-
-    public ArchivoObjetoConfederacion() {
+public class CrudConfederacionBinario extends CrudBinario implements ICrudConfederacion {
+    
+    public CrudConfederacionBinario() {
         this("Confederaciones.bin");
     }
 
-    public ArchivoObjetoConfederacion(String name) {
+    public CrudConfederacionBinario(String name) {
         this.manejadorArchivo = new File(name);
     }
 

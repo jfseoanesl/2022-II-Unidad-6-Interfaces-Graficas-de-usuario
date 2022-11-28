@@ -12,62 +12,17 @@ import java.util.Scanner;
  *
  * @author Jairo F
  */
-public class ArchivoTextoSeleccion implements IArchivoSeleccion {
+public class CrudSeleccionTexto extends CrudTexto implements ICrudSeleccion {
 
-    private File manejadorArchivo;
-    private FileWriter modoEscritura;
-    private Scanner modoLectura;
-
-    public ArchivoTextoSeleccion() {
+    public CrudSeleccionTexto() {
         this("SeleccionesCatar2022.dat");
     }
 
-    public ArchivoTextoSeleccion(String name) {
+    public CrudSeleccionTexto(String name) {
         this.manejadorArchivo = new File(name);
     }
 
-    /**
-     * @return the manejadorArchivo
-     */
-    public File getManejadorArchivo() {
-        return manejadorArchivo;
-    }
-
-    /**
-     * @param manejadorArchivo the manejadorArchivo to set
-     */
-    public void setManejadorArchivo(File manejadorArchivo) {
-        this.manejadorArchivo = manejadorArchivo;
-    }
-
-    /**
-     * @return the modoEscritura
-     */
-    public FileWriter getModoEscritura() {
-        return modoEscritura;
-    }
-
-    /**
-     * @param modoEscritura the modoEscritura to set
-     */
-    public void setModoEscritura(FileWriter modoEscritura) {
-        this.modoEscritura = modoEscritura;
-    }
-
-    /**
-     * @return the modoLectura
-     */
-    public Scanner getModoLectura() {
-        return modoLectura;
-    }
-
-    /**
-     * @param modoLectura the modoLectura to set
-     */
-    public void setModoLectura(Scanner modoLectura) {
-        this.modoLectura = modoLectura;
-    }
-
+    
     @Override
     public void registrarSeleccion(SeleccionFutbol s) throws IOException {
         PrintWriter pw = null;
@@ -102,7 +57,7 @@ public class ArchivoTextoSeleccion implements IArchivoSeleccion {
         boolean clasificada = Boolean.valueOf(dato[3]);
         double rendimiento = Double.valueOf(dato[4].replace(',', '.'));
         int idConfe = Integer.valueOf(dato[5]);
-        ArchivoTextoConfederacion aConfe = new ArchivoTextoConfederacion();
+        CrudConfederacionTexto aConfe = new CrudConfederacionTexto();
         Confederacion confederacion = aConfe.buscarConfederacionPorId(idConfe);
         SeleccionFutbol s = new SeleccionFutbol(id, nombre, ranking, clasificada, rendimiento, confederacion);
         return s;

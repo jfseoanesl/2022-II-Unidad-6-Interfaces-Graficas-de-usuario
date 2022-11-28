@@ -1,23 +1,15 @@
 package vista;
 
-import entidades.Confederacion;
-import entidades.SeleccionFutbol;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import entidades.*;
+import java.awt.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
-import modelo.GestionConfederacion;
-import modelo.GestionSeleccionFutbol;
+import modelo.*;
 
 /**
  *
@@ -43,15 +35,10 @@ public class GuiRegistroSeleccion extends JDialog implements ActionListener {
         this.setTitle("Registro de selecciones - Version 1");
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.inicializarComponenetes();
-        //this.setSize(500, 350);
         this.pack();
         this.setLocationRelativeTo(null);
-       
         this.setVisible(true);
 
-        
-        
-        
     }
 
     public void inicializarComponenetes() {
@@ -60,7 +47,7 @@ public class GuiRegistroSeleccion extends JDialog implements ActionListener {
         this.contenedor.setLayout(new BorderLayout());
         this.crearPanelDatos();
         this.crearPanelBotones();
-        
+
         this.cargarConfederaciones();
 
     }
@@ -79,9 +66,9 @@ public class GuiRegistroSeleccion extends JDialog implements ActionListener {
         this.txtRanking = new JFormattedTextField(0);
 
         try {
-            MaskFormatter mascara = new MaskFormatter("##.##");
+            MaskFormatter mascara = new MaskFormatter("#.##");
             this.txtRendimiento = new JFormattedTextField(mascara);
-            this.txtRendimiento.setText("00.00");
+            this.txtRendimiento.setText("0.00");
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -123,7 +110,7 @@ public class GuiRegistroSeleccion extends JDialog implements ActionListener {
     public void cargarConfederaciones() {
         try {
             ArrayList<Confederacion> lista = this.modeloConfe.leerConfederaciones();
-            for(Confederacion c: lista){
+            for (Confederacion c : lista) {
                 this.cmbConfederacion.addItem(c.getNombre());
             }
         } catch (IOException io) {
@@ -153,19 +140,52 @@ public class GuiRegistroSeleccion extends JDialog implements ActionListener {
 
     private SeleccionFutbol leerDatos() throws IOException {
 
-        if (this.txtNombre.getText().isEmpty()) {
-            throw new IllegalArgumentException("EL nombre de la seleccion no puede ser vacio");
+        String nombre = this.txtNombre.getText();
+        if (this.txtNombre.getText().isBlank()) {
+            throw new NullPointerException("EL nombre de la seleccion no puede ser vacio");
         }
 
-        String nombre = this.txtNombre.getText();
+        if (this.txtRanking.getText().isBlank()) {
+            throw new NullPointerException("El Ranking no puede ser vacio");
+        }
+
         int ranking = (int) this.txtRanking.getValue();
-        double rendimiento = Double.valueOf(this.txtRendimiento.getText());
+
+        if (ranking <= 0) {
+            throw new NullPointerException("El Ranking debe ser un numero positivo");
+        }
+
+        if (this.txtRendimiento.getText().isBlank()) {
+            throw new NullPointerException("El rendimiento no puede ser vacio");
+        }
+        double rendimiento;
+        try {
+            rendimiento = Double.valueOf(this.txtRendimiento.getText());
+        } catch (NumberFormatException ne) {
+            throw new NullPointerException("Se requiere un valor decimal valido para el rendimiento");
+        }
+        if (rendimiento < 0 || rendimiento > 1) {
+            throw new NullPointerException("Se requiere un valor decimal valido para el rendimiento");
+        }
         boolean clasificado = this.opcSi.isSelected() ? true : false;
+
         String confe = this.cmbConfederacion.getSelectedItem().toString();
+        if (confe.isBlank()) {
+            throw new NullPointerException("Se debe seleccionar una confederacion");
+        }
         Confederacion confederacion = this.modeloConfe.buscarConfederacionPorNombre(confe);
         int id = this.modeloSele.leerSelecciones().size() + 1;
 
         return new SeleccionFutbol(id, nombre, ranking, clasificado, rendimiento, confederacion);
+    }
+
+    public void limpiarCampos() {
+        this.txtNombre.setText(null);
+        this.txtRanking.setValue(0);
+        this.txtRendimiento.setText("0.00");
+        this.opcSi.setSelected(true);
+        this.cmbConfederacion.setSelectedIndex(0);
+        this.txtNombre.grabFocus();
     }
 
     public void guardar() {
@@ -174,10 +194,11 @@ public class GuiRegistroSeleccion extends JDialog implements ActionListener {
             SeleccionFutbol seleccion = this.leerDatos();
             this.modeloSele.registrarSeleccion(seleccion);
             JOptionPane.showMessageDialog(this, "Datos guardados con exito", "COnfirmacion", JOptionPane.INFORMATION_MESSAGE);
+            this.limpiarCampos();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, ex, "Error de archivo", JOptionPane.ERROR_MESSAGE);
-        } catch (IllegalArgumentException ie) {
-            JOptionPane.showMessageDialog(this, ie, "Error de validacion", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException ne) {
+            JOptionPane.showMessageDialog(this, ne, "Error de validacion", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -191,6 +212,7 @@ public class GuiRegistroSeleccion extends JDialog implements ActionListener {
 
         } else if (e.getSource() == this.btnCancelar) {
 
+            this.limpiarCampos();
         }
 
     }

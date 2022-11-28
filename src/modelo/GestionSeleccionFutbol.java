@@ -4,8 +4,8 @@ import datos.*;
 import entidades.SeleccionFutbol;
 import java.io.IOException;
 import java.util.ArrayList;
-import datos.IArchivoSeleccion;
 import entidades.Confederacion;
+import datos.ICrudSeleccion;
 
 /**
  *
@@ -13,11 +13,11 @@ import entidades.Confederacion;
  */
 public class GestionSeleccionFutbol {
     
-    private IArchivoSeleccion archivo;
+    private ICrudSeleccion archivo;
 
     public GestionSeleccionFutbol() {
-        this.archivo = new ArchivoTextoSeleccion();
-        //this.archivo = new ArchivoObjetoSeleccion();
+        //this.archivo = new CrudSeleccionTexto();
+        this.archivo = new CrudSeleccionBinario();
     }
     
     

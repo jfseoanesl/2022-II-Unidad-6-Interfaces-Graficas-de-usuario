@@ -1,23 +1,14 @@
 package vista;
 
-import entidades.Confederacion;
-import entidades.SeleccionFutbol;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import entidades.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import modelo.GestionConfederacion;
-import modelo.GestionSeleccionFutbol;
+import javax.swing.table.TableRowSorter;
+import modelo.*;
 
 /**
  *
@@ -29,6 +20,8 @@ public class GuiConsulta extends JDialog {
     private JPanel panelBusqueda, panelPpal, panelLogo;
     private JScrollPane panelResultado;
     
+    private RowSorter ordenadorTabla;
+    
     private JLabel lbBusqueda, lbLogo;
     private JComboBox cmbBusqueda;
     private JTable tabla;
@@ -38,7 +31,7 @@ public class GuiConsulta extends JDialog {
     private String titulos[] = {"Id", "Nombre", "Ranking", "Rendimiento","Clasificada"};
     private String contenido[][]={null,null};
     
-     private GestionConfederacion modeloConfe;
+    private GestionConfederacion modeloConfe;
     private GestionSeleccionFutbol modeloSele;
 
     public GuiConsulta(Frame owner, boolean modal) {
@@ -111,6 +104,11 @@ public class GuiConsulta extends JDialog {
         this.tabla = new JTable();
         this.modeloTabla= new DefaultTableModel(this.contenido, this.titulos);
         this.tabla.setModel(this.modeloTabla);
+        
+        //permite que la tabla ordene sus valores segun la columna a la que se da click
+        this.ordenadorTabla = new TableRowSorter(this.modeloTabla);
+        this.tabla.setRowSorter(ordenadorTabla);
+        
         this.panelResultado.setViewportView(this.tabla);
         
         this.panelPpal.add(this.panelResultado);

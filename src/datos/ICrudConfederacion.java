@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author Jairo F
  */
-public interface IArchivoConfederacion {
+public interface ICrudConfederacion {
     void registrarConfederacion(Confederacion c)throws IOException;
     ArrayList<Confederacion> leerConfederaciones() throws IOException;
     Confederacion buscarConfederacionPorId(int id) throws IOException;

@@ -4,6 +4,8 @@
  */
 package vista;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -18,6 +20,8 @@ public class GuiPrincipal extends javax.swing.JFrame {
     public GuiPrincipal() {
         initComponents();
         this.setTitle("Mundial catar 2022 - Registro de Selecciones - Version 1");
+        ImageIcon image = new ImageIcon("./src/imagenes/iconos/copa-mundial.png");
+        this.setIconImage(image.getImage());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -33,6 +37,7 @@ public class GuiPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lbLogoMundial = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -44,6 +49,11 @@ public class GuiPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mundial Catar 2022- Registro de Selecciones");
         setExtendedState(1);
+
+        lbLogoMundial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/logo-catar.jpg"))); // NOI18N
+        lbLogoMundial.setMaximumSize(new java.awt.Dimension(200, 200));
+        lbLogoMundial.setMinimumSize(new java.awt.Dimension(200, 200));
+        lbLogoMundial.setPreferredSize(new java.awt.Dimension(200, 200));
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/menu.png"))); // NOI18N
         jMenu3.setText("Opciones");
@@ -88,11 +98,17 @@ public class GuiPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 713, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(lbLogoMundial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(488, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 403, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(179, Short.MAX_VALUE)
+                .addComponent(lbLogoMundial, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -157,5 +173,6 @@ public class GuiPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JLabel lbLogoMundial;
     // End of variables declaration//GEN-END:variables
 }
